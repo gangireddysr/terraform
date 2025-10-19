@@ -1,13 +1,11 @@
 resource "aws_instance" "terraform" {
-    ami = "ami-09c813fb71547fc4f"
+    #ami = "ami-09c813fb71547fc4f"
+    ami = data.aws_ami.joindevops.id
     instance_type = "t3.micro"
-    #count = "10"
-    count = length(var.instances)
     vpc_security_group_ids = [aws_security_group.allow_allsc.id]
     tags = {
-        Name = var.instances[count.index]
+        Name = "terraform"
         Terraform = "true"
-        Project = "roboshop"
     }
 }
 
